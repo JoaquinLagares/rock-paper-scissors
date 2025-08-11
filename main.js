@@ -1,5 +1,7 @@
 let computerScore = 0;
 let userScore = 0;
+let roundCount = 0;
+const options = document.querySelector('#options')
 
 let getComputerChoice = () => {
     let computerChoice = Math.floor(Math.random() * 3);
@@ -12,11 +14,21 @@ let getComputerChoice = () => {
     }
 
 }
-
-
 let getUserChoice = () => {
-    let userChoice = prompt("Choose rock, paper or scissors");
-    return userChoice.toUpperCase();
+    options.addEventListener('click', (event) => {
+        let target = event.target
+        switch (target.id) {
+            case 'rock':
+                console.log('rock')
+                return 'ROCK'
+            case 'paper':
+                console.log('paper')
+                return 'PAPER'
+            case 'scissors':
+                console.log("scissors")
+                return 'SCISSORS'
+        }
+    })
 }
 
 let comparator = (computerChoice, userChoice) => {
@@ -50,34 +62,72 @@ let comparator = (computerChoice, userChoice) => {
 
 }
 
-
-
 let playRound = () => {
-    let computerChoice = getComputerChoice();
-    console.log(computerChoice)
-    let userChoice = getUserChoice();
+
+
+    options.addEventListener('click', (event) => {
+        roundCount++
+        let userChoice;
+        let target = event.target.id;
+        if (!['rock', 'paper', 'scissors'].includes(target)) return;
+        switch (target) {
+            case 'rock':
+                userChoice = 'ROCK'
+                break
+            case 'paper':
+                userChoice = 'PAPER'
+                break
+            case 'scissors':
+                userChoice = 'SCISSORS'
+                break
+        }
+        let computerChoice = getComputerChoice()
+        midRound(computerChoice, userChoice)
+        if (userScore === 5 || computerScore === 5)
+            endRound(computerChoice, userChoice);
+    })
+
+}
+
+
+let midRound = (computerChoice, userChoice) => {
+
+    const div = document.querySelector('#history')
+    const pRoundCount = document.createElement('p')
+    pRoundCount.textContent = `-----RoundCount: ${roundCount}-----`
+    div.appendChild(pRoundCount)
+    const pUserChoice = document.createElement('p')
+    pUserChoice.textContent = `User choice: ${userChoice}`
+    div.appendChild(pUserChoice)
+    const pComputerChoice = document.createElement('p')
+    pComputerChoice.textContent = `Computer choice: ${computerChoice}`
+    document.querySelector('#history').appendChild(pComputerChoice)
+    console.log(`user choice: ${userChoice}`)
     let comparison = comparator(computerChoice, userChoice)
     if (comparison === "it's a draw")
         console.log("it's a draw")
-    else if (comparator(computerChoice, userChoice) === 'User wins')
+    else if (comparison === 'User wins')
         userScore++
-    else
+    else if (comparison === 'Computer wins')
         computerScore++
-    console.log(`User score: ${userScore}`)
-    console.log(`Computer score: ${computerScore}`)
+
+    const pUserScore = document.createElement('p')
+    pUserScore.textContent = `User score: ${userScore}`
+    div.appendChild(pUserScore)
+    const pComputerScore = document.createElement('p')
+    pComputerScore.textContent = `Computer score: ${computerScore}`
+    div.appendChild(pComputerScore)
+}
+let endRound = () => {
+
+    const div = document.querySelector('#history')
+    const result = document.createElement('h1')
+    result.textContent = `The winner is: ${computerScore === 5 ? "computer" : "user"}`
+    div.appendChild(result)
+    userScore = 0;
+    computerScore = 0;
 }
 
-let playGame = () => {
-    let winner;
-    for (let i = 0; i < 5; i++) {
-        playRound()
-    }
-    if (userScore > computerScore)
-        winner = "user"
-    else
-        winner = "computer"
-    console.log(`The winner is: ${winner}`)
-}
 
-alert("be ready to choose for the upcoming rock paper scissors game thay you are facing against a super technologycal pc. powered to destroy u")
-playGame();
+playRound();
+
