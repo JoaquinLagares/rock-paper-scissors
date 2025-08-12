@@ -5,29 +5,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock-Paper-Scissors</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+    <div>
+        <h1> 🗿 📄 ✂</h1>
+        <div id="game">
 
-    <div id="game">
-        <h1> 🪨📄✂</h1>
-        <h3 id="round"></h3>
-        <div id='player'>
-            <p id="player-points"></p>
-            <p></p>
+            <h3 id="round"></h3>
+            <p id="result"></p>
+            <div id='player'>
+                <p id="player-choice">Your choice</p>
+                <p id="player-points"></p>
+                <div id="options">
+                    <button id="rock">Rock</button>
+                    <button id="paper">Paper</button>
+                    <button id="scissors">Scissors</button>
+                </div>
+            </div>
+            <div id='computer'>
+                <p id="computer-choice">Computer choice</p>
+                <p id="computer-points"></p>
+            </div>
+            <p id="result"></p>
         </div>
-        <div id='computer'>
-            <p id="computer-points"></p>
-            <p></p>
-        </div>
-        <p id="result"></p>
     </div>
 
-    <div id="options">
-        <button id="rock">Rock</button>
-        <button id="paper">Paper</button>
-        <button id="scissors">Scissors</button>
-    </div>
+
 
     <script src="main.js"></script>
 

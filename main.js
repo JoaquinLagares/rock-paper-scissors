@@ -3,8 +3,10 @@ let userScore = 0;
 let roundCount = 1;
 const player = document.querySelector('#player')
 const playerPoints = document.querySelector('#player-points')
+const playerChoice= document.querySelector('#player-choice')
 const computer = document.querySelector('#computer')
 const computerPoints = document.querySelector('#computer-points')
+const compChoice= document.querySelector('#computer-choice')
 const pResult = document.querySelector('#result')
 const options = document.querySelector('#options')
 
@@ -54,7 +56,8 @@ let playRound = () => {
         }
         let computerChoice = getComputerChoice()
         pResult.textContent = `This round ${comparator(computerChoice, userChoice)}`
-
+        playerChoice.textContent = userChoice
+        compChoice.textContent = computerChoice
         playerPoints.textContent = `Player points: ${userScore}`;
         computerPoints.textContent = `Computer points: ${computerScore}`;
         if (userScore === 5 || computerScore === 5) {
